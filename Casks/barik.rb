@@ -7,9 +7,15 @@ cask "barik" do
   desc "Lightweight macOS menu bar replacement for tiling WM users"
   homepage "https://github.com/ojowwalker77/barik"
 
+  depends_on macos: ">= :sequoia"
+
   livecheck do
     url :url
     strategy :github_latest
+  end
+
+  postflight do
+    system "xattr", "-d", "com.apple.quarantine", "#{staged_path}/Barik.app"
   end
 
   app "Barik.app"
